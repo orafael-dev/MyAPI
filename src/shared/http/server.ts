@@ -1,16 +1,17 @@
+import 'dotenv/config'
 import express from 'express'
 import 'express-async-errors'
 import cors from 'cors'
+import { routes } from './routes'
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (request, response) => {
-  return response.json({ message: 'Olá Dev!' })
-})
+app.use(routes)
 
-app.listen(3000, () => {
-  console.log('🏆 Server iniciado na porta 3000 🏆')
+app.listen(process.env.PORT, () => {
+  console.log(`🏆 Server iniciado na porta ${process.env.PORT} 🏆`)
+  console.log(`🏆 http://localhost:${process.env.PORT} 🏆`)
   })
