@@ -1,11 +1,13 @@
 import { Router } from "express";
+import { rolesRouter } from "@roles/http/routes/roles.routes";
 
 const routes = Router()
 
 routes.get('/', (request, response) => {
-  throw new Error('Access denied')
   return response.json({ message: 'Olá Dev!' })
 })
+
+routes.use('/roles', rolesRouter)
 
 export {routes}
 
