@@ -9,8 +9,8 @@ type CreateRoleDTO = {
 export class CreateRoleUseCase {
   constructor(private rolesRepository: RolesRepository) {}
 
-  execute({ name }: CreateRoleDTO): Role {
-    const roleAlreadExists = this.rolesRepository.findByName(name)
+  async execute({ name }: CreateRoleDTO): Promise<Role> {
+    const roleAlreadExists = await this.rolesRepository.findByName(name)
 
     if (roleAlreadExists) {
       throw new AppError('Role already exists')
