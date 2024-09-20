@@ -1,12 +1,16 @@
-import { DataSource } from "typeorm";
-import { Role } from "@roles/entitites/roles";
-import { CreateRolesTable1726770440518 } from "./migrations/1726770440518-CreateRolesTable";
-import { CreateUsersTable1726854494728 } from "./migrations/1726854494728-CreateUsersTable";
+import { DataSource } from 'typeorm'
+import { Role } from '@roles/entitites/roles'
+import { CreateRolesTable1726770440518 } from './migrations/1726770440518-CreateRolesTable'
+import { CreateUsersTable1726854494728 } from './migrations/1726854494728-CreateUsersTable'
+import { AddRoleIdToUsersTable1726855958595 } from './migrations/1726855958595-AddRoleIdToUsersTable'
 
 export const dataSource = new DataSource({
-    type: "sqlite",
-    database: "./db.sqlite",
-    entities: [Role],
-    migrations: [CreateRolesTable1726770440518, CreateUsersTable1726854494728],
-
+  type: 'sqlite',
+  database: './db.sqlite',
+  entities: [Role],
+  migrations: [
+    CreateRolesTable1726770440518,
+    CreateUsersTable1726854494728,
+    AddRoleIdToUsersTable1726855958595,
+  ],
 })
