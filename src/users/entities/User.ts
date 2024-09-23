@@ -22,7 +22,7 @@ export class User {
   isAdmin: boolean
 
   @Column()
-  Avatar?: string
+  avatar?: string
 
   @ManyToOne(() => Role, {
     cascade: true
