@@ -4,6 +4,7 @@ import { container } from 'tsyringe'
 import { CreateUserController } from '@users/useCases/createUser/CreateUserController'
 import { ListUsersController } from '@users/useCases/listUsers/ListUsersController'
 import { CreateLoginController } from '@users/useCases/createLogin/CreateLoginController'
+import { isAuthenticated } from '@shared/http/middlewares/isAuthenticated'
 
 const usersRouter = Router()
 const createUserController = container.resolve(CreateUserController)
@@ -28,10 +29,11 @@ usersRouter.post(
 
 usersRouter.get(
   '/',
+  isAuthenticated,
   celebrate({
     [Segments.QUERY]: {
       page: Joi.number(),
-      limit: Joi.number()
+      limit: Joi.number(),
     },
   }),
   (request, response) => {
@@ -41,6 +43,7 @@ usersRouter.get(
 
 usersRouter.post(
   '/login',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       email: Joi.string().email().required(),
