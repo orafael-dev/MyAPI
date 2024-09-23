@@ -13,6 +13,7 @@ const createLoginController = container.resolve(CreateLoginController)
 
 usersRouter.post(
   '/',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -43,7 +44,6 @@ usersRouter.get(
 
 usersRouter.post(
   '/login',
-  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       email: Joi.string().email().required(),
