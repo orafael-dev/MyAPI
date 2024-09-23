@@ -1,6 +1,12 @@
 import { Role } from '@roles/entitites/roles'
-import { Exclude } from 'class-transformer'
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
+import { Exclude, Expose } from 'class-transformer'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 
 @Entity('users')
@@ -25,15 +31,23 @@ export class User {
   avatar?: string
 
   @ManyToOne(() => Role, {
-    cascade: true
+    cascade: true,
   })
   role: Role
 
   @CreateDateColumn()
   created_at: Date
 
+  @Expose({ name: 'avatar_url' })
+  getAvatarUrl(): string | null {
+    if (!this.avatar) {
+      return null
+    }
+    return `${process.env.AVATAR_URL}/${encodeURIComponent(this.avatar)}`
+  }
+
   constructor() {
-    if(!this.id) {
+    if (!this.id) {
       this.id = uuidv4()
     }
   }
